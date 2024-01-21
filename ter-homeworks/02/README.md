@@ -164,58 +164,26 @@ keys(local.test_map)[0]
 "admin"
 # 4
 "${local.test_map.admin} is ${keys(local.test_map)[0]} for ${local.test_list[2]} server based on OS ${local.servers[local.test_list[2]].image} with ${local.servers["production"].cpu} vcpu, ${local.servers["production"].ram} ram and ${length(local.servers["production"].disks)} virtual disks"
+"John is admin for production server based on OS ubuntu-20-04 with 10 vcpu, 40 ram and 4 virtual disks"
 ```
 
 ## Задание 8*
-1. Напишите и проверьте переменную test и полное описание ее type в соответствии со значением из terraform.tfvars:
+
+К сожалению не получилось... :(
+Попытка в [test.tf](./src/test.tf)
+
+## Задание 9*
+
+[Добавлен nat.tf](./src/nat.tf)
+
+```bash
+# добавлен файл nat.tf для настройки NAT шлюза
+# в файл main.tf добавлена в настройку subnet строчка привязки таблицы маршрутизации
+route_table_id = yandex_vpc_route_table.rt.id
+
 ```
-test = [
-  {
-    "dev1" = [
-      "ssh -o 'StrictHostKeyChecking=no' ubuntu@62.84.124.117",
-      "10.0.1.7",
-    ]
-  },
-  {
-    "dev2" = [
-      "ssh -o 'StrictHostKeyChecking=no' ubuntu@84.252.140.88",
-      "10.0.2.29",
-    ]
-  },
-  {
-    "prod1" = [
-      "ssh -o 'StrictHostKeyChecking=no' ubuntu@51.250.2.101",
-      "10.0.1.30",
-    ]
-  },
-]
-```
-2. Напишите выражение в terraform console, которое позволит вычленить строку "ssh -o 'StrictHostKeyChecking=no' ubuntu@62.84.124.117"
-------
 
-------
+Проверка из консоли:
 
-### Задание 9*
-
-Используя инструкцию https://cloud.yandex.ru/ru/docs/vpc/operations/create-nat-gateway#tf_1, настройте для ваших ВМ nat_gateway. Для проверки уберите внешний IP адрес (nat=false) у ваших ВМ и проверьте доступ в интернет с ВМ, подключившись к ней через serial console. Для подключения предварительно через ssh измените пароль пользователя: ```sudo passwd ubuntu```
-
-### Правила приёма работыДля подключения предварительно через ssh измените пароль пользователя: sudo passwd ubuntu
-В качестве результата прикрепите ссылку на MD файл с описанием выполненой работы в вашем репозитории. Так же в репозитории должен присутсвовать ваш финальный код проекта.
-
-**Важно. Удалите все созданные ресурсы**.
-
-
-### Критерии оценки
-
-Зачёт ставится, если:
-
-* выполнены все задания,
-* ответы даны в развёрнутой форме,
-* приложены соответствующие скриншоты и файлы проекта,
-* в выполненных заданиях нет противоречий и нарушения логики.
-
-На доработку работу отправят, если:
-
-* задание выполнено частично или не выполнено вообще,
-* в логике выполнения заданий есть противоречия и существенные недостатки. 
-
+![screen](./screen/Screenshot2024-01-21-232850.png)
+![screen](./screen/Screenshot2024-01-21-233021.png)
