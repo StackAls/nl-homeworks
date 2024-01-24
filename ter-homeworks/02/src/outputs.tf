@@ -1,5 +1,3 @@
-
-# instance_name, external_ip, fqdn
 output "test" {
   value = [
     { 
@@ -11,5 +9,3 @@ output "test" {
       yandex_compute_instance.platform2.name]  }
   ]
 }
-
-# terraform output > test.txt
