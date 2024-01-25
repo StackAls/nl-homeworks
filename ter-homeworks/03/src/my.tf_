@@ -1,0 +1,50 @@
+variable "vm_resources_db" {
+  type = map(object({
+    cores = number
+    memory  = number
+    core_fraction = number
+  }))
+  default = {
+     main= {
+       cores = 2
+       memory = 2
+       core_fraction = 20
+     },
+     replica= {
+       cores = 1
+       memory = 1
+       core_fraction = 20
+     }
+   }
+}
+
+resource "yandex_compute_instance" "platform-db" {
+    
+  for_each = var.vm_resources_db
+
+  name = "${each.key}"
+  resources {
+    cores         = var.vm_resources_db["${each.key}"].cores
+    memory        = var.vm_resources_db["${each.key}"].memory
+    core_fraction = var.vm_resources_db["${each.key}"].core_fraction
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu.image_id
+    }
+  }
+
+  scheduling_policy {
+    preemptible = var.vm_web_preemptible
+  }
+
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = var.vm_web_nat
+    security_group_ids = [yandex_vpc_security_group.example.id]
+  }
+
+  metadata = var.metadata["ssh-key"]
+
+}
