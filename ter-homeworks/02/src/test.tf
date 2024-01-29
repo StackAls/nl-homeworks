@@ -1,6 +1,6 @@
 variable "test" {
     type = list(object({
-        name = list(string)
+        name = tuple[string]
         }))
     default = [ 
         {
