@@ -15,6 +15,7 @@
 
 ```bash
 terraform init
+
 # Заменить в main.tf
   # network_id     = yandex_vpc_network.develop.id
   network_id = module.vpc.network_id
@@ -22,10 +23,12 @@ terraform init
   subnet_ids = [module.vpc.subnet_id]
 
 terraform apply
+
 terraform console
 > module.vpc
 {
-  "network_id" = (known after apply)
+  "network_id" = "enphlhmq5dpvrh42ensr"
+  "subnet_id" = "e9bp3p7und23prcjlofu"
 }
 >
 ```
