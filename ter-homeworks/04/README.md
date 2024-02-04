@@ -11,7 +11,7 @@
 ## Задание 2
 
 Написан локальный модуль vpc, который создаёт два ресурса: **одну** сеть и **одну** подсеть в зоне `ru-central1-a`.
-В модуль передаются переменные с названием сети, zone и v4_cidr_blocks. Из модуля возвоащается `network_id` создаваемой сети.
+В модуль передаются переменные с названием сети, zone и v4_cidr_blocks. Из модуля возвоащается `network_id` создаваемой сети и `subnet_id` подсети.
 
 ```bash
 terraform init
@@ -19,7 +19,7 @@ terraform init
   # network_id     = yandex_vpc_network.develop.id
   network_id = module.vpc.network_id
   # subnet_ids     = [yandex_vpc_subnet.develop.id]
-  subnet_ids = [module.vpc.network_id]
+  subnet_ids = [module.vpc.subnet_id]
 
 terraform apply
 terraform console
@@ -30,7 +30,7 @@ terraform console
 >
 ```
 
-Произведена генерация документации в модуле [vpc documentation](./src/vpc/readme.md) и в проекте [modules](./src/modules.md)
+Произведена генерация документации в модуле [vpc readme.md](./src/vpc/readme.md) и в проекте [modules.md](./src/modules.md)
 
 ```bash
 stack@StackNote:/mnt/c/Users/stack/MyProjects/Learning/nl-homeworks/ter-homeworks/04/src/vpc$ docker run --rm --volume "$(pwd):/terraform-docs" -u $(id -u) quay.io/terraform-docs/terraform-docs:0.17.0 markdown /terraform-docs > readme.md
@@ -39,20 +39,46 @@ stack@StackNote:/mnt/c/Users/stack/MyProjects/Learning/nl-homeworks/ter-homework
 
 ![screen](./screen/Screenshot2024-02-03-211701.png)
 
-### Задание 3
+## Задание 3
 
-1. Выведите список ресурсов в стейте.
-2. Полностью удалите из стейта модуль vpc.
-3. Полностью удалите из стейта модуль vm.
-4. Импортируйте всё обратно. Проверьте terraform plan. Изменений быть не должно.
-Приложите список выполненных команд и скриншоты процессы.
+```bash
+terraform state list
+data.template_file.cloudinit
+module.analytics.data.yandex_compute_image.my_image
+module.analytics.yandex_compute_instance.vm[0]
+module.marketing.data.yandex_compute_image.my_image
+module.marketing.yandex_compute_instance.vm[0]
+module.vpc.yandex_vpc_network.develop
+module.vpc.yandex_vpc_subnet.develop
+
+terraform state show module.vpc.yandex_vpc_network.develop | grep id
+id = "enphlhmq5dpvrh42ensr"
+
+terraform state show module.vpc.yandex_vpc_subnet.develop | grep id
+id = "e9bp3p7und23prcjlofu"
+
+terraform state show module.analytics.yandex_compute_instance.vm[0] | grep id
+id = "fhmsjktco68u9h86ha49"
+
+terraform state show module.marketing.yandex_compute_instance.vm[0] | grep id
+id = "fhm0ol84ao38ahdjm6ne"
+
+terraform import module.vpc.yandex_vpc_network.develop enphlhmq5dpvrh42ensr
+terraform import module.vpc.yandex_vpc_subnet.develop e9bp3p7und23prcjlofu
+terraform import module.marketing.yandex_compute_instance.vm[0] fhm0ol84ao38ahdjm6ne
+terraform import module.analytics.yandex_compute_instance.vm[0] fhmsjktco68u9h86ha49
+
+terraform plan
+
+```
+
+![screen](./screen/Screenshot2024-02-04-112321.png)
+![screen](./screen/Screenshot2024-02-04-112231.png)
+![screen](./screen/Screenshot2024-02-04-112128.png)
 
 ## Дополнительные задания (со звёздочкой*)
 
-**Настоятельно рекомендуем выполнять все задания со звёздочкой.**   Они помогут глубже разобраться в материале.
-Задания со звёздочкой дополнительные, не обязательные к выполнению и никак не повлияют на получение вами зачёта по этому домашнему заданию.
-
-### Задание 4*
+## Задание 4*
 
 1. Измените модуль vpc так, чтобы он мог создать подсети во всех зонах доступности, переданных в переменной типа list(object) при вызове модуля.  
   
