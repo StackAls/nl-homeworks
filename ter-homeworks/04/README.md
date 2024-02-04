@@ -40,7 +40,7 @@ stack@StackNote:/mnt/c/Users/stack/MyProjects/Learning/nl-homeworks/ter-homework
 stack@StackNote:/mnt/c/Users/stack/MyProjects/Learning/nl-homeworks/ter-homeworks/04/src$ docker run --rm --volume "$(pwd):/terraform-docs" -u $(id -u) quay.io/terraform-docs/terraform-docs:0.17.0 markdown /terraform-docs > modules.md
 ```
 
-![screen](./screen/Screenshot2024-02-03-211701.png)
+![screen](./screen/Screenshot2024-02-03-21170.png)
 
 ## Задание 3
 
