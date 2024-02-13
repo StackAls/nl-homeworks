@@ -5,6 +5,21 @@ terraform {
     }
   }
   required_version = ">=0.13"
+
+  backend "s3" {
+    endpoint          = "storage.yandexcloud.net"
+    bucket            = "stackals"
+    region            = "ru-central1"
+    key               = "terraform/terraform.tfstate"
+    dynamodb_endpoint = "https://docapi.serverless.yandexcloud.net/ru-central1/b1gqm1iol4i36qcf7cbn/etnavhfjj0tfg9ub9s7r"
+    dynamodb_table    = "state-lock-db"
+
+    profile = "dev"
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
+  }
+
 }
 
 provider "yandex" {
@@ -27,3 +42,4 @@ provider "vault" {
   token           = "education"
   # checkov:skip=CKV_SECRET_6: education
 }
+
