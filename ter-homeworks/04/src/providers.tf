@@ -6,7 +6,7 @@ terraform {
     }
     template = {
       source = "hashicorp/template"
-      version = "~> 0.1"
+      version = "2.2.0"
     }
     vault = {
       source = "hashicorp/vault"
