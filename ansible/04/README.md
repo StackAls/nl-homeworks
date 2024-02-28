@@ -36,4 +36,4 @@ ansible-playbook -i inventory/prod.yml site.yml
 
 - [GitHub vector-role repo](https://github.com/StackAls/vector-role)
 - [GitHub lighthouse-role repo](https://github.com/StackAls/lighthouse-role)
-- [GitHub playbook repo](https://github.com/StackAls/nl-homeworks/tree/main/ansible/04)
+- [GitHub playbook repo](https://github.com/StackAls/nl-homeworks/tree/main/ansible/04/playbook)
