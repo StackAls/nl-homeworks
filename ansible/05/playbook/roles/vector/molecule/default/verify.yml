@@ -1,0 +1,21 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Example assertion
+    ansible.builtin.assert:
+      that: true
+  - name: Check vector service
+    assert:
+      that: vector_pid.stdout != 0
+      success_msg: "Service is running"
+      fail_msg: "Service not running"
+
+  - name: Check vector config
+    assert:
+      that: valid_config.rc == 0
+      success_msg: "Config valid"
+      fail_msg: "Config not valid "

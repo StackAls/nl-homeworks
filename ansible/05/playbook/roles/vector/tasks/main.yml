@@ -1,0 +1,99 @@
+---
+- name: Install sudo packages
+  # become: true
+  ansible.builtin.yum:
+    name: sudo
+  when: ansible_facts['pkg_mgr'] == 'yum'
+- name: Install vector packages for Ubuntu
+  ansible.builtin.apt:
+    deb: sudo
+    install_recommends: yes
+  notify: restart vector
+  when: ansible_facts['pkg_mgr'] == 'apt'
+# tasks file for vector-role
+- name: Get Vector distrib
+  ansible.builtin.get_url:
+    url: "https://packages.timber.io/vector/{{ vector_versionm }}/vector-{{ vector_version }}.{{ ansible_architecture }}.rpm"
+    dest: "./vector-{{ vector_version }}.{{ ansible_architecture }}.rpm"
+    mode: "0755"
+    validate_certs: false
+- name: Install vector packages
+  become: true
+  block:
+    - name: Install Vector packages centos7
+      ansible.builtin.yum:
+        name: vector-{{ vector_version }}.{{ ansible_architecture }}.rpm
+        disable_gpg_check: true
+      when: ansible_facts['pkg_mgr'] == 'yum'
+
+    - name: Install Vector packages centos8 (dnf)
+      ansible.builtin.dnf:
+        name:
+          - "vector-{{ vector_version_rpm }}-1.x86_64.rpm"
+        disable_gpg_check: yes
+      notify: restart vector
+      when: ansible_facts['pkg_mgr'] == 'dnf'
+
+    - name: PreInstall vector packages for Ubuntu
+      ansible.builtin.shell: |
+        apt-get update &&
+        apt install -y curl &&
+        curl --proto '=https' --tlsv1.2 -O  https://packages.timber.io/vector/{{ vector_version_deb }}/vector_{{ vector_version_deb }}-1_amd64.deb && ls
+      when: ansible_facts['pkg_mgr'] == 'apt'
+
+    - name: Install vector packages for Ubuntu
+      ansible.builtin.apt:
+        deb: vector_{{ vector_version_deb }}-1_amd64.deb
+        install_recommends: yes
+      notify: restart vector
+      when: ansible_facts['pkg_mgr'] == 'apt'
+
+- name: Deploy config Vector
+  become: true
+  ansible.builtin.template:
+    src: vector.j2
+    dest: /etc/vector/vector.yml
+    mode: "0755"
+  notify: Start Vector service
+# - name: Run vector
+#   # ansible.builtin.command: vector --config /etc/vector/vector.yaml
+#   ansible.builtin.command:
+#     argv:
+#       - vector
+#       - --config
+#       - /etc/vector/vector.yaml
+
+- name: Vector config validate
+  ansible.builtin.command: "vector validate --no-environment vector.yml"
+  register: valid_config
+
+- name: Kill process
+  ansible.builtin.shell:
+    cmd: "kill {{ vector_pid.stdout }}"
+  when: vector_pid.stdout is defined and vector_pid.stdout != ''
+
+- name: Run command in background
+  ansible.builtin.shell:
+    cmd: "/usr/bin/vector --config-yaml vector.yml --watch-config &"
+
+- name: Add vector user to docker group
+  user:
+    name: vector
+    groups: docker
+    append: yes
+  when: add_vector_docker_group | default(no)
+  notify: restart vector
+
+- name: Add vector user to systemd-journal group
+  user:
+    name: vector
+    groups: systemd-journal
+    append: yes
+  when: add_vector_journal_group | default(no)
+  notify: restart vector
+
+- name: Start Vector
+  service:
+    state: started
+    enabled: yes
+    name: vector
