@@ -18,3 +18,6 @@ molecule init scenario podman --driver-name=podman
 ![screen](./screen/Screenshot2024-03-04-181236.png)
 
 ![screen](./screen/Screenshot2024-03-05-202643.png)
+
+[Roles Vector](./playbook/roles/vector/)
+[Molecule Settings](./playbook/roles/vector/molecule/)
