@@ -1,0 +1,8 @@
+---
+- name: Test module
+  hosts: localhost
+  tasks:
+    - name: Test
+      my_own_module:
+        path: "/tmp/test.test"
+        content: "My homework content"

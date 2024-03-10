@@ -1,0 +1,4 @@
+---
+# defaults file for my_own_module
+path: "/tmp/test.test"
+content: "My homework content"
