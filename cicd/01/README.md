@@ -20,10 +20,10 @@
 ![screen](./screen/settings.png)
 
 Создание Epic
-[screen](./screen/epic.png)
+![screen](./screen/epic.png)
 
 Трэкинг bug
-[screen](./screen/bug-track.png)
+![screen](./screen/bug-track.png)
 
 Трэкинг других задач
-[screen](./screen/epic-track.png)
+![screen](./screen/epic-track.png)
