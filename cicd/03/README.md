@@ -22,7 +22,7 @@ mvn package
 ![screen](./screen/Screenshot2024-03-17-192046.png)
 ![screen](./screen/Screenshot2024-03-17-192832.png)
 ![screen](./screen/Screenshot2024-03-17-194435.png)
-![screen](./screen/Screenshot2024-03-17-194519.png)
+![screen](./screen/Screenshot2024-03-17-194520.png)
 ![screen](./screen/Screenshot2024-03-17-200734.png)
 
 [maven-metadata.xml](./data/maven-metadata.xml)
