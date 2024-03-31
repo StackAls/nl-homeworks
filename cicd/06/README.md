@@ -31,3 +31,5 @@ Cоздана виртуальная машина gitlab из публичног
 Issue закрыто
 
 [Лог пайплайна](./repo/job.log)
+
+![screen](./screen/Screenshot2024-03-31-214738.png)
