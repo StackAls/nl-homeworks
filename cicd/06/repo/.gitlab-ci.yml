@@ -1,0 +1,37 @@
+default:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  before_script:
+    - docker info
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  # This instructs Docker not to start over TLS.
+  DOCKER_TLS_CERTDIR: ""
+
+stages:
+  - build
+  - deploy
+
+build-job:
+  stage: build
+  tags:
+    - dind
+    - netology
+  script:
+    - docker build -t python-api:gitlab-$CI_COMMIT_SHORT_SHA .
+  except:
+    - main
+
+deploy-job:
+  stage: deploy
+  tags:
+    - dind
+    - netology
+  script:
+    - docker login -u iam -p $REGISTRY_PASS cr.yandex
+    - docker build -t cr.yandex/crpe719t8lr4rpibo4r6/netology/python-api:latest .
+    - docker push cr.yandex/crpe719t8lr4rpibo4r6/netology/python-api:latest
+  only:
+    - main
