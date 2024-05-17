@@ -131,4 +131,4 @@ curl -X GET <http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg>
 
 К сожалению не удалось разобраться почему из minio не загружается картинка.
 
-![screen](./screen/screen.png)
+![screen](./screen/screen2.png)
