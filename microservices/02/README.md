@@ -128,3 +128,7 @@ curl -X GET <http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg>
 
 Исправлен файл [gateway/nginx.conf на default.conf](./11-microservices-02-principles/gateway/default.conf)
 Исправлен файл [security/requirements.txt](./11-microservices-02-principles/security/requirements.txt) - иначе сервис не работает.
+
+К сожалению не удалось разобраться почему из minio не загружается картинка.
+
+![screen](./screen/screen.png)
