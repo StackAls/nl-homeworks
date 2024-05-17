@@ -16,7 +16,7 @@
 
 Обоснуйте свой выбор.
 
-### Ответ
+### <span style="color:red"> Ответ </span>
 
 На данный момент существует множество решений подходящих под эти требования. Например:
 
@@ -47,7 +47,7 @@
 
 Обоснуйте свой выбор.
 
-### Ответ
+### <span style="color:red"> Ответ </span>
 
 Наиболее популярны брокеры сообщений RabbitMQ, Apache Kafka, Redis Streams, ActiveMQ
 
@@ -124,7 +124,7 @@ curl -X GET <http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg>
 
 ---
 
-### Ответ
+### <span style="color:red"> Ответ </span>
 
 Исправлен файл [gateway/nginx.conf на default.conf](./11-microservices-02-principles/gateway/default.conf)
 
