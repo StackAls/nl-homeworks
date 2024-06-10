@@ -6,14 +6,6 @@
 
 ------
 
-### Чеклист готовности к домашнему заданию
-
-1. Установленное k8s-решение (например, MicroK8S).
-2. Установленный локальный kubectl.
-3. Редактор YAML-файлов с подключённым git-репозиторием.
-
-------
-
 ### Инструменты и дополнительные материалы, которые пригодятся для выполнения задания
 
 1. [Описание](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) Deployment и примеры манифестов.
@@ -29,6 +21,45 @@
 3. Продемонстрировать количество подов до и после масштабирования.
 4. Создать Service, который обеспечит доступ до реплик приложений из п.1.
 5. Создать отдельный Pod с приложением multitool и убедиться с помощью `curl`, что из пода есть доступ до приложений из п.1.
+
+------
+
+### Ответ на задание 1
+
+```bash
+# разворачиваем приложение
+kubectl apply -f app/deployment.yml
+
+# проверяем
+kubectl get deployment
+kubectl get pods
+
+# смотрим логи
+kubectl logs deployments/myapp-13 -c nginx
+kubectl logs deployments/myapp-13 -c multitool
+
+```
+
+![screen](./screen/2024-06-10_17-50.png)
+
+![screen](./screen/2024-06-10_17-58.png)
+
+Имеется ошибка развертывания приложения - занят порт 80.
+
+Для корректной работы multitool необходимо указать рабочие порты [например из документации](https://github.com/wbitt/Network-MultiTool/blob/master/kubernetes/multiool-daemonset.yml)
+
+[Файл deployment.yml](./app/deployment.yml)
+
+Приложение успешно развернуто.
+![screen](./screen/2024-06-10_18-39.png)
+
+Увеличиваем количество реплик.
+
+![screen](./screen/2024-06-10_18-44.png)
+
+Создаем [сервис service.yml](./app/service.yml)
+
+![screen](./screen/2024-06-10_18-55.png)
 
 ------
 
