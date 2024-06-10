@@ -26,6 +26,8 @@
 
 ### Ответ на задание 1
 
+1. Разворачиваем Deployment
+
 ```bash
 # разворачиваем приложение
 kubectl apply -f app/deployment.yml
@@ -53,13 +55,17 @@ kubectl logs deployments/myapp-13 -c multitool
 Приложение успешно развернуто.
 ![screen](./screen/2024-06-10_18-39.png)
 
-Увеличиваем количество реплик.
+2 , 3. Увеличиваем количество реплик.
 
 ![screen](./screen/2024-06-10_18-44.png)
 
-Создаем [сервис service.yml](./app/service.yml)
+4. Создаю [сервис service.yml](./app/service.yml)
 
 ![screen](./screen/2024-06-10_18-55.png)
+
+5. Создаю [Pod multi.yml](./app/multi.yml)
+
+![screen](./screen/2024-06-10_21-56.png)
 
 ------
 
@@ -72,10 +78,17 @@ kubectl logs deployments/myapp-13 -c multitool
 
 ------
 
-### Правила приема работы
+### Ответ на задание 2
 
-1. Домашняя работа оформляется в своем Git-репозитории в файле README.md. Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-2. Файл README.md должен содержать скриншоты вывода необходимых команд `kubectl` и скриншоты результатов.
-3. Репозиторий должен содержать файлы манифестов и ссылки на них в файле README.md.
+Создаю Deployment приложения nginx.
+
+[Файл nginx.yml](./app/nginx.yml)
+
+Создаю Service
+
+[Файл nginx-srv.yml](./app/nginx-srv.yml)
+
+Результат
+![screen](./screen/2024-06-10_22-29.png)
 
 ------

@@ -8,6 +8,4 @@ spec:
       image: wbitt/network-multitool:latest
       ports:
         - containerPort: 8080
-      command: ["/bin/sh", "-c"]
-      args:
-        - "sleep 3600"
+      command: ["/bin/sh", "-c", 'echo "Hello, Kubernetes!" && sleep 3600']
