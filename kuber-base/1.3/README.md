@@ -53,6 +53,7 @@ kubectl logs deployments/myapp-13 -c multitool
 [Файл deployment.yml](./app/deployment.yml)
 
 Приложение успешно развернуто.
+
 ![screen](./screen/2024-06-10_18-39.png)
 
 2 , 3. Увеличиваем количество реплик.
