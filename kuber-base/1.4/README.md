@@ -48,10 +48,10 @@ kubectl logs deployments/myapp-14 -c nginx
 kubectl logs deployments/myapp-14 -c multitool
 
 # проверка сетевой связности
-# по IP
+# по IP сервиса внутри кластера
 kubectl exec -it multitool-test -- curl http://10.152.183.112:9001
 kubectl exec -it multitool-test -- curl http://10.152.183.112:9002
-# по имени
+# по имени сервиса внутри кластера
 kubectl exec -it multitool-test -- curl http://srv-app14:9001
 kubectl exec -it multitool-test -- curl http://srv-app14:9002
 
@@ -91,7 +91,7 @@ kubectl get services
 kubectl get pods -o wide
 
 # проверка сетевой связности
-# по IP кластера с локальной машины
+# по внешнему IP кластера с локальной машины
 # в настройках группы безопасносли YandexCloud открыть порты 30001-30002
 curl http://178.154.205.25:30001
 curl http://178.154.205.25:30002
