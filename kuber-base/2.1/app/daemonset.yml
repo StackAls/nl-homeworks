@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: myapp-21-2
+spec:
+  selector:
+    matchLabels:
+      name: myapp-21-2
+  template:
+    metadata:
+      labels:
+        name: myapp-21-2
+    spec:
+      containers:
+        - name: multitool
+          image: wbitt/network-multitool:latest
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          volumeMounts:
+            - name: varlog
+              mountPath: /app
+      volumes:
+        - name: varlog
+          hostPath:
+            path: /var/log

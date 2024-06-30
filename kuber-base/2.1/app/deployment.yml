@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-21
+spec:
+  selector:
+    matchLabels:
+      app: app-21
+  template:
+    metadata:
+      labels:
+        app: app-21
+    spec:
+      volumes:
+        - name: app-21-1
+          emptyDir:
+            sizeLimit: 1Mi
+      containers:
+        - name: busybox
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "while true; do echo `date` 'Test from busybox' >> /app-21/test.txt; sleep 5; done",
+            ]
+          volumeMounts:
+            - mountPath: /app-21
+              name: app-21-1
+        - name: multitool
+          image: wbitt/network-multitool:latest
+          env:
+            - name: HTTP_PORT
+              value: "1180"
+            - name: HTTPS_PORT
+              value: "11443"
+          volumeMounts:
+            - mountPath: /app
+              name: app-21-1
