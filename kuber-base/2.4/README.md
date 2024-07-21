@@ -34,7 +34,7 @@ microk8s enable rbac
 openssl genrsa -out log-user.key 2048
 openssl req -new -key log-user.key -out log-user.csr -subj "/CN=log-user"
 # подписываю ключ пользователя сертификатом сервера kubernetes
-openssl x509 -req -in log-user.csr -CA /home/leo/kuber-homeworks/2.4 -CAkey /home/leo/kuber-homeworks/2.4 -CAcreateserial -out log-user.crt -days 500
+openssl x509 -req -in log-user.csr -CA /var/snap/microk8s/current/certs/ca.crt -CAkey /var/snap/microk8s/current/certs/ca.key -CAcreateserial -out log-user.crt -days 500
 # добавляю пользователя в конфиг
 microk8s kubectl config set-credentials log-user --client-certificate=log-user.crt --client-key=log-user.key --embed-certs=true
 # создаю контекст для пользователя
