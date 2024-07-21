@@ -54,6 +54,7 @@ kubectl apply -f .\app\role-binding.yml
 microk8s kubectl get pods
 microk8s kubectl get deployments
 microk8s kubectl logs myapp-23-2-f8c76fdc7-whbfz
+microk8s kubectl describe pod
 ```
 
 ![screen](./screen/Screenshot2024-07-21_173903.png)
