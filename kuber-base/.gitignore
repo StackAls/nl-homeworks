@@ -2,3 +2,5 @@
 .env
 yc-nl-microk8s
 yc-iaac*
+.venv
+

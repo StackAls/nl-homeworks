@@ -27,7 +27,8 @@ variable "default_cidr" {
 
 variable "vpc_name" {
   type        = string
-  default     = "develop"
-  description = "VPC network&subnet name"
+  default     = "kuber"
+  description = "VPC network & subnet name"
 }
+
 
