@@ -47,7 +47,16 @@ terraform apply -auto-approve
 
 Теперь устанавливаю кластер kubernetes с помощью ansible.
 
-[inventory.ini](./inventory.ini)
+Заполняю файл [inventory.ini](./inventory.ini) IP адресами хостов. Так же проверяю переменные для inventory kubespray - необходимо удостовериться, что используется указанный в задании containerd.
+
+```bash
+# kubespray\inventory\my_cluster\group_vars\k8s_cluster\k8s-cluster.yml
+
+## Container runtime
+## docker for docker, crio for cri-o and containerd for containerd.
+## Default: containerd
+container_manager: containerd
+```
 
 ```bash
 # установка python 3.12
@@ -92,6 +101,14 @@ sudo kubectl get nodes
 1. Установить кластер в режиме HA.
 2. Использовать нечётное количество Master-node.
 3. Для cluster ip использовать keepalived или другой способ.
+
+-----
+
+### Ответ на задание 2
+
+К сожалению, времени не хватает решить. Но в целом это делается так же. Только количество master нод должно быть не менее 3 штук. Так же для большей устойчивости кластера мастера и ноды имеет смысл разнести по разным зонам доступности.
+
+-----
 
 ### Правила приёма работы
 
