@@ -1,0 +1,23 @@
+#cloud-config
+datasource:
+  Ec2:
+    strict_id: false
+ssh_pwauth: no
+users:
+  - name: admin
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH9AKvgJaAEuxZ1gVuXRMgWG2yeKdt2Kafmrkpot8Pks stack@StackNote
+write_files:
+  - path: "/var/www/html/index.html"
+    permissions: "644"
+    content: |
+      <html>
+      <head><title>Welcome</title></head>
+      <body>
+         <h1>LAMP</h1>
+         <p>This is a LAMP server.</p>
+         <img src="https://storage.yandexcloud.net/stackals-bkt/image.jpg" />
+      </body>
+      </html>
