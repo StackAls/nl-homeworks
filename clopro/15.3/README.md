@@ -27,6 +27,8 @@
 
 ## Ответ на задание 1
 
+Весь код в папке [tfm](./tfm/)
+
 Создаю ключ - файл [kms.tf](./tfm/kms.tf) и добавляю в бакет [s3storage.tf](./tfm/s3storage.tf)
 
 ```bash
